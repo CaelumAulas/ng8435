@@ -1,5 +1,5 @@
 <header class="headerGlobal mdl-layout__header">
-  <button class="mdl-layout__drawer-button">
+  <button class="mdl-layout__drawer-button" (click)="toggleMenu()">
     <span class="material-icons"></span>
   </button>
 
@@ -52,4 +52,4 @@
     </a>
   </nav>
 </section>
-<div class="headerGlobal__menuOverlay"></div>
+<div class="headerGlobal__menuOverlay" (click)="toggleMenu()"></div>
