@@ -9,8 +9,6 @@ export class FormFieldDirective implements OnInit {
 
   ngOnInit(){
 
-    console.log(this.elemento.nativeElement.tagName.toLowerCase());
-    
     let campo:HTMLInputElement = this.elemento.nativeElement;
 
     if(!campo.name){
