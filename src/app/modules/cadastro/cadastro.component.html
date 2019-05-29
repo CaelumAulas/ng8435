@@ -8,29 +8,43 @@
 
         <form [formGroup]="formCadastro" (ngSubmit)="cadastrarUsuario()">
 
-          <cmail-form-group label="Nome" id-campo="nome">
-            <input formControlName="nome" required type="text" name="nome" cmailFormField>
+          <cmail-form-group label="Nome" id-campo="nome" [control]="nome">
+            <input autofocus formControlName="nome" required type="text" name="nome" cmailFormField>
             <span class="mdl-textfield__error">Informar um nome é obrigatório!</span>
           </cmail-form-group>
 
-          <cmail-form-group label="Username" id-campo="username">
+
+          <cmail-form-group label="Username" id-campo="username" [control]="username">
             <input formControlName="username" required type="text" name="username" cmailFormField>
-            <span class="mdl-textfield__error">Informar um username é obrigatório!</span>
+            
+            <span *ngIf="username.getError('required')" class="mdl-textfield__error">
+              Informar um username é obrigatório!
+            </span>
+            
+            <span *ngIf="username.getError('minlength')" class="mdl-textfield__error">
+              Username tem que ter no minimo 
+              {{username.getError('minlength').requiredLength}} 
+              caracteres
+            </span>
+
           </cmail-form-group>
 
-          <cmail-form-group label="Senha" id-campo="senha">
+          <cmail-form-group label="Senha" id-campo="senha" [control]="senha">
             <input formControlName="senha" required type="password" name="senha" cmailFormField>
             <span class="mdl-textfield__error">Informar uma senha é obrigatório!</span>
           </cmail-form-group>
 
-          <cmail-form-group label="Avatar" id-campo="avatar">
+          <cmail-form-group label="Avatar" id-campo="avatar" [control]="avatar">
             <input formControlName="avatar" required type="text" name="avatar" cmailFormField>
             <span class="mdl-textfield__error">Informar um avatar é obrigatório!</span>
           </cmail-form-group>
 
-          <cmail-form-group label="Telefone" id-campo="telefone">
+          <cmail-form-group label="Telefone" id-campo="telefone" [control]="telefone">
             <input formControlName="telefone" required type="text" name="telefone" cmailFormField>
-            <span class="mdl-textfield__error">Informar um telefone é obrigatório!</span>
+            <span *ngIf="telefone.getError('required')" class="mdl-textfield__error">Informar um telefone é obrigatório!</span>
+            <span *ngIf="telefone.getError('pattern')" class="mdl-textfield__error">
+              O formato deve ser 99999999
+            </span>
           </cmail-form-group>
 
           <div class="mdl-card__actions">

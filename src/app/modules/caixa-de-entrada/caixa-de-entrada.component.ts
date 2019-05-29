@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Email } from '../../models/email';
 import { NgForm } from '@angular/forms';
+import { FormValidation } from 'src/app/utils/form-validation';
 
 @Component({
   selector: 'cmail-caixa-de-entrada',
@@ -26,16 +27,10 @@ export class CaixaDeEntradaComponent implements OnInit {
     this._isEmailOpen = !this.isEmailOpen;
   }
 
-  validaCampos(form){
-    for(let nomeControl in form.controls){
-      form.controls[nomeControl].markAsTouched();
-    }
-  }
-
   enviarEmail(formEmail: NgForm){
     
     if(formEmail.invalid){
-      this.validaCampos(formEmail);
+      FormValidation.validaCampos(formEmail);
       return
     }
 
