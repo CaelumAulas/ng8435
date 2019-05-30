@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false
+  ,cmailApi: 'http://localhost:3200/'
 };
 
 /*

@@ -1,6 +1,38 @@
-<p>
-  login works!
-</p>
-<a routerLink="/cadastro">Cadastro</a> <br>
-<a routerLink="/inbox">Inbox</a>
+<div class="mdl-layout mdl-js-layout">
+  <main class="mdl-layout__content">
+  <div class="page-content">
+    <div class="mdl-grid">
+      <article class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <header class="mdl-card__title">
+          <h1 class="mdl-card__title-text">Bem vindos/as ao CMail!</h1>
+        </header>
+  
+        <form #formLogin="ngForm" (ngSubmit)="fazerLogin(formLogin)"  autocomplete="off" class="mdl-card__supporting-text">
+  
+          <!-- aqui os campos do formulário -->
+          <cmail-form-group label="Email" id-campo="email" [control]="email">
+            <input required #email="ngModel" [(ngModel)]="login.email" email type="email" name="email" cmailFormField>
+            <span class="mdl-textfield__error">Informar um email é obrigatório!</span>
+          </cmail-form-group>
+
+          <cmail-form-group label="Senha" id-campo="senha" [control]="senha">
+            <input required #senha="ngModel" [(ngModel)]="login.senha" type="password" name="senha" cmailFormField>
+            <span class="mdl-textfield__error">Informar uma senha é obrigatória!</span>
+          </cmail-form-group>
+  
+          <div class="mdl-card__actions mdl-card--border">
+            <a routerLink="cadastro" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              Primeiro login? Cadastre-se!
+            </a>
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent entrar">
+              Entrar
+            </button>
+          </div>
+        </form>
+  
+      </article>
+    </div>
+  </div>
+  </main>
+  </div>
   

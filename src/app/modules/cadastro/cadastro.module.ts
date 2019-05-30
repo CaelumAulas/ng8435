@@ -6,6 +6,9 @@ import { HeaderModule } from 'src/app/components/header/header.module';
 import { FormGroupModule } from 'src/app/components/form-group/form-group.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CadastroRoutingModule } from './cadastro-routing.module';
+import { CadastroService } from 'src/app/services/cadastro.service';
+import { FormValidation } from 'src/app/utils/form-validation';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,12 @@ import { HttpClientModule } from '@angular/common/http';
     FormGroupModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CadastroRoutingModule
+  ],
+  providers: [
+    CadastroService,
+    FormValidation
   ]
 })
 export class CadastroModule { }

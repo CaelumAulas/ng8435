@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidationErrors } from "@angular/forms";
-import { HttpClient } from '@angular/common/http';
-import { UserPost } from 'src/app/models/dto/user-post';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from "@angular/forms";
 import { FormValidation } from 'src/app/utils/form-validation';
-import { map } from "rxjs/operators";
+import { Router } from '@angular/router';
+import { CadastroService } from 'src/app/services/cadastro.service';
+import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'cmail-cadastro',
@@ -25,51 +26,70 @@ export class CadastroComponent implements OnInit {
     senha: this.senha,
     telefone: this.telefone,
     avatar:this.avatar
-  })
+  }, {updateOn: 'blur'})
 
   mensagem = '';
 
-  constructor(private http: HttpClient){}
+  constructor(private servico: CadastroService,
+              private http: HttpClient,
+              private roteador: Router){}
 
-  validaImagem(): Observable<ValidationErrors> {
+  ngOnInit() {}
 
-    const url = this.avatar.value;
-
+  validaImagem(controle: AbstractControl): Observable<ValidationErrors | null> {
+    
+    const url = controle.value;
+    
     return this.http
                 .head(url,{observe: 'response'})
                 .pipe(
-                  map((response)=> {
-                    return [response.ok]
+                  map((response) => {
+
+                    if(response.ok){
+                      console.warn('deu certo')
+                      console.log(response);
+
+                      return null
+                    }
+                    else {
+                      console.warn('erro')
+                      console.log(response);
+                      
+                      let erro = {
+                        urlInvalida: "A url apresentou problemas",
+                        status: response.status
+                      }
+
+                      return erro
+                    }
+                  })
+                  ,catchError((response) => {
+
+                    console.warn('Caiu no catchError');
+                    console.log(response);
+
+                    let erroMsg = {
+                      urlInvalida: "Url com bloqueio de CORS",
+                      status: response.status
+                    }
+
+                    return [erroMsg]
                   })
                 )
-    
   }
-
-  ngOnInit() {}
 
   cadastrarUsuario(){
 
     if(this.formCadastro.invalid) {
-      FormValidation.validaCampos(this.formCadastro)
+      FormValidation.validaCampos(this.formCadastro);
+      return;
     }
-
-    let userDataApi = new UserPost(this.formCadastro.value);
     
-    this.http
-        .post('http://localhost:3200/users',userDataApi)
+    this.servico
+        .cadastrar(this.formCadastro.value)
         .subscribe(
-          (response) => {
-            console.log(response);
-            this.mensagem = 'cadastrado com sucesso';
-          }
-          ,(error) => {
-            console.log(error);
-          }
-          ,() => {
-            //complete
-            console.log('sucesso');
-            
-          }
+          () => this.roteador.navigate(['login', this.formCadastro.get('nome').value])
+          ,error => console.log(error)
         )
     
   }
