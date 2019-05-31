@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Email } from 'src/app/models/email';
 
 @Component({
@@ -9,10 +9,18 @@ import { Email } from 'src/app/models/email';
 export class ListItemComponent implements OnInit {
 
   @Input() email: Email;
+  @Output() meDeletaAi = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  apagarEmail(){
+
+    if(confirm('Vc tem certeza?')){
+      this.meDeletaAi.emit();
+    }
+
   }
 
 }

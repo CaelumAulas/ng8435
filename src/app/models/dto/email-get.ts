@@ -6,6 +6,7 @@ export class EmailGet {
   assunto = '';
   mensagem = '';
   dataEnvio = '';
+  id = '';
 
   constructor(emailIngles: EmailPost) {
 
@@ -13,6 +14,7 @@ export class EmailGet {
     this.assunto = emailIngles.subject;
     this.mensagem = emailIngles.content;
     this.dataEnvio = emailIngles.created_at;
+    this.id = emailIngles.id;
 
   }
 

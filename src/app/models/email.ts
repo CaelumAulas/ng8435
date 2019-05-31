@@ -3,4 +3,5 @@ export class Email {
     assunto = '';
     mensagem = '';
     dataEnvio = '';
+    id = '';
 }

@@ -18,14 +18,7 @@ export class CaixaDeEntradaComponent implements OnInit {
   constructor(private servico: EmailService) { }
 
   ngOnInit() {
-    this.servico.listar()
-                .subscribe(
-                  emailListApi => {
-                    console.log(emailListApi);
-                    this.listaEmails = emailListApi;
-                    
-                  }
-                )
+    this.listarEmails();
   }
 
   get isEmailOpen(){
@@ -57,4 +50,30 @@ export class CaixaDeEntradaComponent implements OnInit {
 
   }
 
+  listarEmails(){
+    this.servico.listar()
+                .subscribe(
+                  emailListApi => this.listaEmails = emailListApi
+                  ,erro => console.log(erro)
+                )
+  }
+
+  deletarEmail(id: string){
+    console.log('apagou cx entrada');
+    this.servico.deletar(id)
+    .subscribe((res)=>{
+      
+      //alternativa caso queira pegar sempre do banco de dados;
+      //this.listarEmails();
+      
+      this.listaEmails = this
+                        .listaEmails
+                        .filter(email => email.id != id)
+
+    }
+    ,erro => console.log(erro)
+    )
+    
+    //remover o email da lista e da API (implementar um serviço de remoção)
+  }
 }

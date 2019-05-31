@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class EmailService {
 
-  private _endpoint = 'emails';
+  private _endpoint = 'emails/';
   private headers = {
     headers: new HttpHeaders({
       'Authorization': localStorage.getItem('cmail-token')
@@ -35,17 +35,19 @@ export class EmailService {
 
   }
 
-  listar(){
+  listar(): Observable<Email[]>{
     
     return this.http
-                .get(environment.cmailApi+this._endpoint,this.headers)
+                .get<EmailPost[]>(environment.cmailApi+this._endpoint,this.headers)
                 .pipe(
                   map(
-                    (emailList) => {
-
-                    }
+                    (emailList) => emailList.map(emailApi => new EmailGet(emailApi))
                   )
                 )
 
+  }
+
+  deletar(id: string): Observable<Object> {
+    return this.http.delete(environment.cmailApi+this._endpoint+id, this.headers)
   }
 }

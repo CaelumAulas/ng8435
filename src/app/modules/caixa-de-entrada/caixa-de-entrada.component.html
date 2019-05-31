@@ -3,8 +3,13 @@
     <main class="mdl-layout__content">
       <div class="page-content">
         
-        <ul>
-          <cmail-list-item *ngFor="let email of listaEmails" [email]="email">
+        <ul class="mdl-list">
+          <cmail-list-item 
+            *ngFor="let emailLista of listaEmails.reverse()" 
+            [email]="emailLista" 
+            (meDeletaAi)="deletarEmail(emailLista.id)"
+            [title]="emailLista.id"
+          >
           </cmail-list-item>
         </ul>
         
