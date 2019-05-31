@@ -5,10 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HeaderModule } from 'src/app/components/header/header.module';
 import { CaixaDeEntradaRoutingModule } from './caixa-de-entrada-routing.module';
+import { EmailService } from 'src/app/services/email.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ListItemComponent } from './list-item/list-item.component';
 
 @NgModule({
   declarations: [
-    CaixaDeEntradaComponent
+    CaixaDeEntradaComponent,
+    ListItemComponent
   ],
   exports: [CaixaDeEntradaComponent],
   imports: [
@@ -16,7 +20,11 @@ import { CaixaDeEntradaRoutingModule } from './caixa-de-entrada-routing.module';
     FormsModule,
     RouterModule,
     HeaderModule,
-    CaixaDeEntradaRoutingModule
+    CaixaDeEntradaRoutingModule,
+    HttpClientModule
+  ],
+  providers: [
+    EmailService
   ]
 })
 export class CaixaDeEntradaModule { }
