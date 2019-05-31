@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { FormValidation } from 'src/app/utils/form-validation';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @Component({
   selector: 'cmail-login',
@@ -17,9 +18,12 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private servico: LoginService
-              ,private roteador: Router) {}
+              ,private roteador: Router
+              ,private pageService: PageDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.pageService.emitirNovoTitulo('Login');
+  }
 
   fazerLogin(formLogin: NgForm){
     
@@ -31,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.servico
         .autenticar(this.login)
         .subscribe(
-          response => {
+          () => {
             this.roteador.navigate(['inbox'])
           }
         ) 

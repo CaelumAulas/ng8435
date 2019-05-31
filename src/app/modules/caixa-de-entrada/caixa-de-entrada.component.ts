@@ -3,6 +3,7 @@ import { Email } from '../../models/email';
 import { NgForm } from '@angular/forms';
 import { FormValidation } from 'src/app/utils/form-validation';
 import { EmailService } from 'src/app/services/email.service';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @Component({
   selector: 'cmail-caixa-de-entrada',
@@ -14,10 +15,13 @@ export class CaixaDeEntradaComponent implements OnInit {
   private _isEmailOpen = false;
   email = new Email();
   listaEmails: Email[] = [];
+  textoDigitado = "";
 
-  constructor(private servico: EmailService) { }
+  constructor(private servico: EmailService
+              ,private pageService: PageDataService) { }
 
   ngOnInit() {
+    this.pageService.emitirNovoTitulo('Caixa de entrada')
     this.listarEmails();
   }
 
@@ -74,6 +78,22 @@ export class CaixaDeEntradaComponent implements OnInit {
     ,erro => console.log(erro)
     )
     
-    //remover o email da lista e da API (implementar um serviço de remoção)
+  }
+
+  filtrarListaEmail(){
+
+    return this.listaEmails
+                .filter( email => {
+                  if(
+                    email.destinatario.toLowerCase().includes(this.textoDigitado.toLowerCase())
+                    || email.assunto.toLowerCase().includes(this.textoDigitado.toLowerCase())
+                    || email.mensagem.toLowerCase().includes(this.textoDigitado.toLowerCase())
+                  ){
+                    return email
+                  }
+
+                });
+    
+    
   }
 }

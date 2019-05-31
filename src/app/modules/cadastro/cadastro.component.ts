@@ -6,6 +6,7 @@ import { CadastroService } from 'src/app/services/cadastro.service';
 import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @Component({
   selector: 'cmail-cadastro',
@@ -32,9 +33,12 @@ export class CadastroComponent implements OnInit {
 
   constructor(private servico: CadastroService,
               private http: HttpClient,
-              private roteador: Router){}
+              private roteador: Router,
+              private pageService: PageDataService){}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.pageService.emitirNovoTitulo('Cadastro');
+  }
 
   validaImagem(controle: AbstractControl): Observable<ValidationErrors | null> {
     

@@ -8,11 +8,14 @@ import { CaixaDeEntradaRoutingModule } from './caixa-de-entrada-routing.module';
 import { EmailService } from 'src/app/services/email.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ListItemComponent } from './list-item/list-item.component';
+import { PageDataService } from 'src/app/services/page-data.service';
+import { Filtro } from './filtro.pipe';
 
 @NgModule({
   declarations: [
     CaixaDeEntradaComponent,
-    ListItemComponent
+    ListItemComponent,
+    Filtro
   ],
   exports: [CaixaDeEntradaComponent],
   imports: [
@@ -24,7 +27,8 @@ import { ListItemComponent } from './list-item/list-item.component';
     HttpClientModule
   ],
   providers: [
-    EmailService
+    EmailService,
+    PageDataService
   ]
 })
 export class CaixaDeEntradaModule { }

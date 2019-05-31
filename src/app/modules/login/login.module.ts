@@ -7,6 +7,7 @@ import { FormGroupModule } from 'src/app/components/form-group/form-group.module
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from 'src/app/services/login.service';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -19,6 +20,9 @@ import { LoginService } from 'src/app/services/login.service';
     FormsModule,
     HttpClientModule
   ]
-  ,providers: [ LoginService ]
+  ,providers: [ 
+    LoginService,
+    PageDataService
+  ]
 })
 export class LoginModule { }

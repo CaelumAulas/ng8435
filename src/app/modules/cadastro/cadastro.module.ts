@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CadastroRoutingModule } from './cadastro-routing.module';
 import { CadastroService } from 'src/app/services/cadastro.service';
 import { FormValidation } from 'src/app/utils/form-validation';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FormValidation } from 'src/app/utils/form-validation';
   ],
   providers: [
     CadastroService,
-    FormValidation
+    FormValidation,
+    PageDataService
   ]
 })
 export class CadastroModule { }
